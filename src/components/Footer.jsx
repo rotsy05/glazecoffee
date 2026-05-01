@@ -26,7 +26,7 @@ export default function Footer() {
             className="inline-flex items-center justify-center mb-8"
           >
             <img
-              src="/images/logo2.png"
+              src="images/logo2.png"
               alt="Glaze Coffee logo"
               className="w-28 sm:w-32 h-auto drop-shadow-2xl"
             />

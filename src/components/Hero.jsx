@@ -66,7 +66,7 @@ function LeftFloaters({ scrollYProgress }) {
       className="absolute inset-0 pointer-events-none z-[15] hidden sm:block"
     >
       <FloatingProduct
-        src="/images/bagel.png"
+        src="images/bagel.png"
         alt=""
         className="top-[14%] left-[3%] md:left-[5%]"
         size="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40"
@@ -77,7 +77,7 @@ function LeftFloaters({ scrollYProgress }) {
         yRange={20}
       />
       <FloatingProduct
-        src="/images/donutcookie.png"
+        src="images/donutcookie.png"
         alt=""
         className="top-[45%] left-[1%] md:left-[13%]"
         size="w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44"
@@ -88,7 +88,7 @@ function LeftFloaters({ scrollYProgress }) {
         yRange={26}
       />
       <FloatingProduct
-        src="/images/muffin.png"
+        src="images/muffin.png"
         alt=""
         className="bottom-[6%] left-[4%] md:left-[7%]"
         size="w-32 h-32 h-28 md:w-30 md:h-28 lg:w-32 lg:h-32"
@@ -120,7 +120,7 @@ function GobeletShowcase({ scrollYProgress }) {
         <div className="absolute inset-0 rounded-full bg-glaze-gold/40 blur-2xl" />
 
         <motion.img
-          src="/images/gobeletplastique.png"
+          src="images/gobeletplastique.png"
           alt="Gobelet plastique Glaze Coffee"
           initial={{ opacity: 0, scale: 0.9, rotate: -8 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}

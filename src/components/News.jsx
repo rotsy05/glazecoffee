@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer'
 
 const news = [
   {
-    image: '/images/cinnamonbun.png',
+    image: 'images/cinnamonbun.png',
     alt: 'Cinnamon Buns maison',
     tag: 'Petit nouveau',
     accent: 'gold',
@@ -13,7 +13,7 @@ const news = [
     span: 'lg:col-span-5',
   },
   {
-    image: '/images/donuts.png',
+    image: 'images/donuts.png',
     alt: 'Plateau de donuts Glaze',
     tag: 'En vitrine',
     accent: 'white',

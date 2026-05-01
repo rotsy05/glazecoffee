@@ -2,57 +2,57 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-const PLACEHOLDER = '/images/menu/_placeholder.svg'
+const PLACEHOLDER = 'images/menu/_placeholder.svg'
 
 const menuData = {
   bagels: {
     label: 'Bagels',
-    image: '/images/bagel.png',
+    image: 'images/bagel.png',
     imageAlt: 'Bagel signature Glaze Coffee',
     tagline: 'Frais. Généreux. Iconique.',
     blurb: '10 recettes signature préparées chaque matin avec des produits frais.',
     items: [
-      { name: 'Thai', image: '/images/menu/bagels/Thai.png', tag: 'Édition limitée', desc: 'Cream cheese, noix de cajou grillée, effiloché de porc au barbecue, carottes, concombres, mesclun, sauce thaï.', price: '11,50€' },
-      { name: 'BBQ Cheddar', image: '/images/menu/bagels/BBQ.png', tag: 'Original', desc: 'Cream cheese, oignons frits, bacon fumé, crème de cheddar, filet de poulet rôti, tomates, sauce barbecue, mesclun.', price: '11,50€' },
-      { name: 'Caesar', image: '/images/menu/bagels/caesar.png', tag: 'Best-seller', desc: 'Cream cheese, oignons frits, copeaux de Parmigiano Reggiano AOP, filet de poulet rôti, sauce caesar, mesclun.', price: '11,00€' },
-      { name: 'Chèvre-Miel', image: '/images/menu/bagels/ChevreMiel.png', tag: 'Sucré-salé', desc: 'Chèvre frais doux, miel, noix, jambon cru, tomates, roquette.', price: '11,00€' },
-      { name: 'Indien', image: '/images/menu/bagels/indien.png', tag: 'Épicé', desc: 'Cream cheese, sauce curry, filet de poulet rôti, oignon rouge, tomates, mesclun.', price: '10,10€' },
-      { name: 'Nordique', image: '/images/menu/bagels/Nordique.png', tag: 'Premium', desc: 'Cream cheese, saumon fumé, oignons rouges, avocat, mesclun.', price: '10,50€' },
-      { name: 'New York', image: '/images/menu/bagels/NewYork.png', tag: 'Iconique', desc: 'Cream cheese, pastrami de boeuf, cornichons, oignons confits, sauce moutarde et miel, mesclun.', price: '10,50€' },
-      { name: 'Parme', image: '/images/menu/bagels/Parme.png', tag: 'Italien', desc: 'Cream cheese, sauce pesto, jambon cru, tomates, mozzarella, roquette.\n', price: '10,50€' },
-      { name: 'Veggie', image: '/images/menu/bagels/Veggie.png', tag: 'Veggie', desc: 'Houmous à la libanaise, oignon rouges, tomates, champignons frais, mesclun, crème de vinaigre balsamique.\n', price: '9,50€' },
-      { name: 'Basique', image: '/images/menu/bagels/Basique.png', tag: 'Classique', desc: 'Cream cheese, saumon fumé.', price: '7,50€' },
-      { name: 'Sur-Mesure', image: '/images/menu/bagels/surmes.png', tag: 'À toi !', desc: 'Compose ton bagel comme tu veux', price: 'dès 5,00€' },
+      { name: 'Thai', image: 'images/menu/bagels/Thai.png', tag: 'Édition limitée', desc: 'Cream cheese, noix de cajou grillée, effiloché de porc au barbecue, carottes, concombres, mesclun, sauce thaï.', price: '11,50€' },
+      { name: 'BBQ Cheddar', image: 'images/menu/bagels/BBQ.png', tag: 'Original', desc: 'Cream cheese, oignons frits, bacon fumé, crème de cheddar, filet de poulet rôti, tomates, sauce barbecue, mesclun.', price: '11,50€' },
+      { name: 'Caesar', image: 'images/menu/bagels/caesar.png', tag: 'Best-seller', desc: 'Cream cheese, oignons frits, copeaux de Parmigiano Reggiano AOP, filet de poulet rôti, sauce caesar, mesclun.', price: '11,00€' },
+      { name: 'Chèvre-Miel', image: 'images/menu/bagels/ChevreMiel.png', tag: 'Sucré-salé', desc: 'Chèvre frais doux, miel, noix, jambon cru, tomates, roquette.', price: '11,00€' },
+      { name: 'Indien', image: 'images/menu/bagels/indien.png', tag: 'Épicé', desc: 'Cream cheese, sauce curry, filet de poulet rôti, oignon rouge, tomates, mesclun.', price: '10,10€' },
+      { name: 'Nordique', image: 'images/menu/bagels/Nordique.png', tag: 'Premium', desc: 'Cream cheese, saumon fumé, oignons rouges, avocat, mesclun.', price: '10,50€' },
+      { name: 'New York', image: 'images/menu/bagels/NewYork.png', tag: 'Iconique', desc: 'Cream cheese, pastrami de boeuf, cornichons, oignons confits, sauce moutarde et miel, mesclun.', price: '10,50€' },
+      { name: 'Parme', image: 'images/menu/bagels/Parme.png', tag: 'Italien', desc: 'Cream cheese, sauce pesto, jambon cru, tomates, mozzarella, roquette.\n', price: '10,50€' },
+      { name: 'Veggie', image: 'images/menu/bagels/Veggie.png', tag: 'Veggie', desc: 'Houmous à la libanaise, oignon rouges, tomates, champignons frais, mesclun, crème de vinaigre balsamique.\n', price: '9,50€' },
+      { name: 'Basique', image: 'images/menu/bagels/Basique.png', tag: 'Classique', desc: 'Cream cheese, saumon fumé.', price: '7,50€' },
+      { name: 'Sur-Mesure', image: 'images/menu/bagels/surmes.png', tag: 'À toi !', desc: 'Compose ton bagel comme tu veux', price: 'dès 5,00€' },
     ],
   },
   donuts: {
     label: 'Donuts',
-    image: '/images/donutcookie.png',
+    image: 'images/donutcookie.png',
     imageAlt: 'Donut Cookie Glaze Coffee',
     tagline: 'Gourmands. Glacés. Instagrammables.',
     blurb: 'Des donuts  à tomber, fait pour le feed et pour la bouche.',
     items: [
-        { name: 'Kinder Bueno',  image: '/images/menu/donuts/bueno.png', tag: 'Best-seller', desc: 'Glaçage crème de noisette, gaufrette Kinder Bueno, le tout fourré avec du délicieux Nutella.\n', price: '3,80€' },
-        { name: 'Kinder Bueno',  image: '/images/menu/donuts/bueno.png', tag: 'Best-seller', desc: ' Glaçage crème de noisette, gaufrette Kinder Bueno.', price: '3,40€' },
-      { name: 'Nutella', image: '/images/menu/donuts/nutella.png', tag: 'Classique', desc: 'Glaçage Nutella.', price: '3,40€' },
-      { name: 'Pistache', image: '/images/menu/donuts/pistache.png', tag: 'Premium', desc: 'Glaçage pistache, morceaux de pistaches.', price: '3,40€' },
-      { name: 'Spéculoos', image: '/images/menu/donuts/speculos.png',tag: 'Cosy', desc: 'Glaçage caramel, morceaux et coulis de Spéculoos.', price: '3,40€' },
-      { name: 'Kit Kat', image: '/images/menu/donuts/kitkat.png',tag: 'Crunchy', desc: 'Glaçage crème bueno, éclats de Kit Kat croustillants, fourrage Nutella.', price: '3,80€' },
-      { name: "M&M's", image: '/images/menu/donuts/mms.png',tag: 'Fun', desc: 'Glaçage chocolat, morceaux M&M\'s.',  price: '3,40€'},
-      { name: 'Citron', image: '/images/menu/donuts/citron.png', tag: 'Frais', desc: 'Glaçage citron, éclats de meringue craquants et fourrage à la crème citronnée.', price: '3,80€' },
-      { name: 'Oreo',  image: '/images/menu/donuts/oreo.png',tag: 'Iconique', desc: 'Glaçage vanille, morceaux de biscuits Oreo.', price: '3,40€' },
+        { name: 'Kinder Bueno',  image: 'images/menu/donuts/bueno.png', tag: 'Best-seller', desc: 'Glaçage crème de noisette, gaufrette Kinder Bueno, le tout fourré avec du délicieux Nutella.\n', price: '3,80€' },
+        { name: 'Kinder Bueno',  image: 'images/menu/donuts/bueno.png', tag: 'Best-seller', desc: ' Glaçage crème de noisette, gaufrette Kinder Bueno.', price: '3,40€' },
+      { name: 'Nutella', image: 'images/menu/donuts/nutella.png', tag: 'Classique', desc: 'Glaçage Nutella.', price: '3,40€' },
+      { name: 'Pistache', image: 'images/menu/donuts/pistache.png', tag: 'Premium', desc: 'Glaçage pistache, morceaux de pistaches.', price: '3,40€' },
+      { name: 'Spéculoos', image: 'images/menu/donuts/speculos.png',tag: 'Cosy', desc: 'Glaçage caramel, morceaux et coulis de Spéculoos.', price: '3,40€' },
+      { name: 'Kit Kat', image: 'images/menu/donuts/kitkat.png',tag: 'Crunchy', desc: 'Glaçage crème bueno, éclats de Kit Kat croustillants, fourrage Nutella.', price: '3,80€' },
+      { name: "M&M's", image: 'images/menu/donuts/mms.png',tag: 'Fun', desc: 'Glaçage chocolat, morceaux M&M\'s.',  price: '3,40€'},
+      { name: 'Citron', image: 'images/menu/donuts/citron.png', tag: 'Frais', desc: 'Glaçage citron, éclats de meringue craquants et fourrage à la crème citronnée.', price: '3,80€' },
+      { name: 'Oreo',  image: 'images/menu/donuts/oreo.png',tag: 'Iconique', desc: 'Glaçage vanille, morceaux de biscuits Oreo.', price: '3,40€' },
     ],
   },
   muffins: {
     label: 'Muffins',
-    image: '/images/muffin.png',
+    image: 'images/muffin.png',
     imageAlt: 'Muffin signature Glaze Coffee',
     tagline: 'Moelleux. Gourmand. Réconfortant.',
     blurb: 'Cuits chaque matin, à savourer encore tièdes avec un café de spécialité.',
     items: [
       {
         name: 'Caramel Beurre Salé & Pécan',
-        image: '/images/menu/muffins/caramel.png',
+        image: 'images/menu/muffins/caramel.png',
         tag: 'Best-seller',
         desc: '\n' +
             'Base de muffin nature, noix de pécan torréfié, cœur fondant au caramel beurre salé.\n',
@@ -61,14 +61,14 @@ const menuData = {
       {
         name: 'Nutella',
         tag: 'Classique',
-          image: '/images/menu/muffins/nutella.png',
+          image: 'images/menu/muffins/nutella.png',
         desc: 'Base de muffin nature, pépites de chocolat au lait, cœur fondant au Nutella',
         price: '4,20€',
       },
       {
         name: 'Praliné',
         tag: 'Maison',
-          image: '/images/menu/muffins/praline.png',
+          image: 'images/menu/muffins/praline.png',
         desc: 'Base de muffin nature, éclats de noisettes et d\'amandes caramélisées, cœur fondant au praliné.',
         price: '4,20€',
       },
@@ -76,7 +76,7 @@ const menuData = {
   },
   formules: {
     label: 'Formules',
-    image: '/images/menu/formule.png',
+    image: 'images/menu/formule.png',
     imageAlt: 'Boisson signature Glaze Coffee',
     tagline: 'Le combo. Le bon plan.',
     blurb: 'Compose ton combo et fais des économies — les meilleurs deals de Laval.',
@@ -84,7 +84,7 @@ const menuData = {
       {
         name: 'Formule Malin',
         tag: 'Le bon plan',
-          image: '/images/menu/formule.png',
+          image: 'images/menu/formule.png',
         desc: 'Bagel + Dessert OU Boisson',
         price: '12,40€',
         highlight: true,
@@ -92,7 +92,7 @@ const menuData = {
       {
         name: 'Formule Complète',
         tag: 'Tout-en-un',
-          image: '/images/menu/formule.png',
+          image: 'images/menu/formule.png',
         desc: 'Bagel + Dessert + Boisson',
         price: '14,40€',
         highlight: true,
@@ -101,7 +101,7 @@ const menuData = {
       {
         name: 'Box de donuts',
         tag: 'Pause',
-          image: '/images/menu/box.png',
+          image: 'images/menu/box.png',
         desc: 'Donuts et nombre de pièces au choix.',
         price: 'dès 11,80€',
       },

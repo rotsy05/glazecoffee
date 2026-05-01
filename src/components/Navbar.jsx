@@ -66,7 +66,7 @@ export default function Navbar() {
         >
           <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/95 p-1.5 shadow-md">
             <img
-              src="/images/logo1.png"
+              src="images/logo1.png"
               alt="Glaze Coffee logo"
               className="w-full h-full object-contain"
             />
