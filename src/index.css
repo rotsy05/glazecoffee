@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-body bg-white text-glaze-ink;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-glaze-blue text-white;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--grain-bg);
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+  }
+
+  .gradient-blue {
+    background: radial-gradient(
+        circle at 20% 20%,
+        #2952A3 0%,
+        transparent 55%
+      ),
+      radial-gradient(circle at 80% 30%, #1B3A7A 0%, transparent 60%),
+      linear-gradient(135deg, #142C5C 0%, #1B3A7A 50%, #2952A3 100%);
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .clip-blob {
+    clip-path: polygon(
+      30% 0%,
+      70% 5%,
+      100% 30%,
+      95% 70%,
+      70% 100%,
+      30% 95%,
+      0% 70%,
+      5% 30%
+    );
+  }
+}
