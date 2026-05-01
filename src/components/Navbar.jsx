@@ -8,6 +8,8 @@ const links = [
   { label: 'Trouver le shop', href: '#location' },
 ]
 
+const uberEatsUrl = 'https://www.ubereats.com/fr-en/store/glaze-coffee/q0nm6CFbXqCZvu17d1thOg?ps=1/'
+
 export default function Navbar() {
   const { scrollY } = useScroll()
   const [hidden, setHidden] = useState(false)
@@ -90,7 +92,9 @@ export default function Navbar() {
 
         <div className="hidden md:block">
           <a
-            href="#"
+            href={uberEatsUrl}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-glaze-gold text-glaze-blue font-semibold text-sm hover:bg-white transition-colors duration-300 shadow-pop"
           >
             Commander
@@ -144,7 +148,10 @@ export default function Navbar() {
               ))}
               <li>
                 <a
-                  href="#"
+                  href={uberEatsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
                   className="inline-block mt-2 px-6 py-3 rounded-full bg-glaze-gold text-glaze-blue font-semibold"
                 >
                   Commander →
