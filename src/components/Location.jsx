@@ -1,21 +1,87 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
 const hours = [
-  { day: 'Lundi', hours: '11h00 – 19h00' },
-  { day: 'Mardi', hours: '11h00 – 19h00' },
-  { day: 'Mercredi', hours: '11h00 – 19h00' },
-  { day: 'Jeudi', hours: '11h00 – 19h00' },
-  { day: 'Vendredi', hours: '11h00 – 20h00' },
-  { day: 'Samedi', hours: '11h00 – 20h00' },
-  { day: 'Dimanche', hours: '12h00 – 18h00' },
+  { day: 'Lundi', label: '11h00 – 19h00', open: '11:00', close: '19:00' },
+  { day: 'Mardi', label: '11h00 – 19h00', open: '11:00', close: '19:00' },
+  { day: 'Mercredi', label: '11h00 – 19h00', open: '11:00', close: '19:00' },
+  { day: 'Jeudi', label: '11h00 – 19h00', open: '11:00', close: '19:00' },
+  { day: 'Vendredi', label: '11h00 – 20h00', open: '11:00', close: '20:00' },
+  { day: 'Samedi', label: '11h00 – 20h00', open: '11:00', close: '20:00' },
+  { day: 'Dimanche', label: '12h00 – 18h00', open: '12:00', close: '18:00' },
 ]
 
-const today = new Date().getDay() // 0 = Sun
-const todayIndex = today === 0 ? 6 : today - 1
+const SHOP_TIMEZONE = 'Europe/Paris'
+
+function getParisNow() {
+  const parts = new Intl.DateTimeFormat('fr-FR', {
+    timeZone: SHOP_TIMEZONE,
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(new Date())
+
+  const valueOf = (type) => parts.find((part) => part.type === type)?.value ?? ''
+  const weekday = valueOf('weekday').toLowerCase().replace('.', '')
+  const hour = Number(valueOf('hour'))
+  const minute = Number(valueOf('minute'))
+  const weekdayMap = {
+    lun: 0,
+    mar: 1,
+    mer: 2,
+    jeu: 3,
+    ven: 4,
+    sam: 5,
+    dim: 6,
+  }
+
+  return {
+    todayIndex: weekdayMap[weekday] ?? 0,
+    currentMinutes: hour * 60 + minute,
+  }
+}
+
+function toMinutes(time) {
+  const [hour, minute] = time.split(':').map(Number)
+  return hour * 60 + minute
+}
+
+function formatTime(time) {
+  return time.replace(':', 'h')
+}
+
+function getCurrentOpeningState() {
+  const { todayIndex, currentMinutes } = getParisNow()
+  const todayHours = hours[todayIndex]
+  const openMinutes = toMinutes(todayHours.open)
+  const closeMinutes = toMinutes(todayHours.close)
+  const isOpen = currentMinutes >= openMinutes && currentMinutes < closeMinutes
+
+  return {
+    todayIndex,
+    isOpen,
+    statusText: isOpen ? 'OUVERT' : 'FERME',
+    headline: isOpen ? `Ouvert jusqu'à ${formatTime(todayHours.close)}` : `Ouvre a ${formatTime(todayHours.open)}`,
+  }
+}
 
 export default function Location() {
   const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true })
+  const [openingState, setOpeningState] = useState(() => getCurrentOpeningState())
+
+  useEffect(() => {
+    const updateOpeningState = () => {
+      setOpeningState(getCurrentOpeningState())
+    }
+
+    updateOpeningState()
+
+    const intervalId = window.setInterval(updateOpeningState, 60 * 1000)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
 
   return (
     <section
@@ -168,12 +234,22 @@ export default function Location() {
                   Horaires
                 </div>
                 <div className="font-display font-bold text-2xl sm:text-3xl text-glaze-ink mt-1">
-                  Ouvert dès 11h
+                  {openingState.headline}
                 </div>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-100 text-green-700 text-xs font-bold">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                OUVERT
+              <div
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold ${
+                  openingState.isOpen
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-rose-100 text-rose-700'
+                }`}
+              >
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    openingState.isOpen ? 'bg-green-500 animate-pulse' : 'bg-rose-500'
+                  }`}
+                />
+                {openingState.statusText}
               </div>
             </div>
 
@@ -182,17 +258,17 @@ export default function Location() {
                 <li
                   key={h.day}
                   className={`flex items-center justify-between py-3 ${
-                    i === todayIndex ? 'font-semibold text-glaze-blue' : 'text-glaze-ink/80'
+                    i === openingState.todayIndex ? 'font-semibold text-glaze-blue' : 'text-glaze-ink/80'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    {i === todayIndex && (
+                    {i === openingState.todayIndex && (
                       <span className="w-1.5 h-1.5 rounded-full bg-glaze-gold" />
                     )}
                     {h.day}
                   </span>
                   <span className="font-medium tabular-nums text-sm">
-                    {h.hours}
+                    {h.label}
                   </span>
                 </li>
               ))}
